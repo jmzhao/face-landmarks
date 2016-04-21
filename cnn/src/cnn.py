@@ -28,3 +28,5 @@ arff.load('../toydata/vote_train.arff')
 # train the model, iterating on the data in batches
 # of 32 samples
 model.fit(data, labels, nb_epoch=10, batch_size=32)
+
+model.predict
