@@ -52,22 +52,25 @@ subdirs = [
     'multipie'
 ]
 
-X = None; Y = None; l = None;
-for sub in subdirs :
-    dirname = "../../../result_20/" + sub + "_20/" 
-    l = list(filter(is_froot_valid, (dirname+f for f in get_froot_list(dirname))))
-    n = [np.transpose(io.imread(frootname+".png"), (2,0,1)) for frootname in l]
-    X = np.append(X, n, axis=0) if X is not None else np.array(n)
-    n = [read_pts(frootname+".5pts") for frootname in l]
-    Y = np.append(Y, n, axis=0) if Y is not None else np.array(n)
-X = X.astype('float32')
-Y = Y.astype('float32')
-X /= 255
-Y[:,:,0] /= img_rows
-Y[:,:,1] /= img_cols
-
-print('X shape:', X.shape)
-print('Y shape:', Y.shape)
+def data(path, subdirs) :
+    X = None; Y = None; l = None;
+    for sub in subdirs :
+        dirname = path + sub + "_20/" 
+        l = list(filter(is_froot_valid, (dirname+f for f in get_froot_list(dirname))))
+        n = [np.transpose(io.imread(frootname+".png"), (2,0,1)) for frootname in l]
+        X = np.append(X, n, axis=0) if X is not None else np.array(n)
+        n = [read_pts(frootname+".5pts") for frootname in l]
+        Y = np.append(Y, n, axis=0) if Y is not None else np.array(n)
+    X = X.astype('float32')
+    Y = Y.astype('float32')
+    X /= 255
+    Y[:,:,0] /= img_rows
+    Y[:,:,1] /= img_cols
+    
+    print('X shape:', X.shape)
+    print('Y shape:', Y.shape)
+    
+    return X, Y
 
 
 # In[69]:
