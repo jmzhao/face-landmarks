@@ -94,4 +94,11 @@ def split_data(X, Y, ratio_train, rand_seed) :
     return (X_train, Y_train), (X_test, Y_test)
 
 
-
+def coord_to_corners(coord) :
+    x, y = coord
+    return np.array([(1-x)*(1-y), (1-x)*y, x*y, x*(1-y)])
+def corners_to_coord(corners) :
+    x0y0, x0y1, x1y1, x1y0 = corners
+    return np.array([x1y1+x1y0, x1y1+x0y1]) / sum(corners)
+def pointwise(array, ufunc) :
+    return np.array([[ufunc(p) for p in pts] for pts in array])

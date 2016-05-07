@@ -62,5 +62,7 @@ target/
 .ipynb_checkpoints
 
 # custom
+*.*~
 */temp.py
 */tmp/
+cnn/model
